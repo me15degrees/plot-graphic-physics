@@ -1,39 +1,69 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from rich_menu import Menu
 
-def integrate_acc_to_vel(v0,t0,a,t):
+def menu():
+    menu = Menu(
+        "Gráfico 1 - s(t)",
+        "Gráfico 2 - v(t)",
+        "Gráfico 3 - a(t)" ,
+        color="bold purple",
+        rule_title="Física I",
+        align="center",
+        panel_title="escolha a modalidade",
+        selection_char="->",
+    )
+    selected = menu.ask(screen=False)
+    return selected
+
+def vt(v0, t0, a, t):
     v = a * (t - t0) + v0
-    vel_function = print(f"v(t) = {v0} + {a} * (t - {t0})")
-    
-    return v, vel_function
+    return v, a  # Agora retorna a velocidade e a aceleração
 
+def plot_const_functions(intervals, constants, ylabel="Y"):
+    plt.figure(num=0, dpi=120)
 
-def integrate_vel_to_pos(s0,t0,v,t):
-    s = v * (t-t0) + s0
-    pos_function = print(f"s(t) = {s0} + {v} * (t - {t0})")
-    
-    return s, pos_function
+    for i, interval in enumerate(intervals):
+        t_values = np.linspace(interval[0], interval[1], 100)
+        const_value = constants[i]
+        plt.hlines(const_value, interval[0], interval[1], label=f'Intervalo {i+1}')
+        if i < len(intervals) - 1:
+            next_interval = intervals[i+1]
+            plt.plot([interval[1], next_interval[0]], [const_value, constants[i+1]], color='blue')
 
+    plt.legend()
+    plt.xlabel('Tempo')
+    plt.ylabel(ylabel)
+    plt.show()
 
 def main():
-    t0 = [0,1,3,8,9] # condição inicial de tempo
-    v0 = [0,0,4,4,0] # condição inicial de velocidade
-    s0 = [0,1,4,24,26] # condição inicial de posição
-    a = [0,2,0,-4,0] 
-    
     size = 5
-    
-    interval = [(0,1),(1,3),(3,8),(8,9),(9,10)] # intervalos de tempo
-    
-    v = []
-    s = []
-    
-    for i in range(size):
-        print(f"\nPara o intervalo {i}: ")
-        print(f"a(t) = {a[i]}")
-        vf, _ = integrate_acc_to_vel(v0[i],t0[i],a[i],interval[i][1])
-        v.append(vf)
-        sf, _ = integrate_vel_to_pos(s0[i],t0[i],v[i],interval[i][1])
-        s.append(sf)
+    t0 = [0, 1, 3, 8, 9]  # condição inicial de tempo
+    v0 = [0, 0, 4, 4, 0]  # condição inicial de velocidade
+    a = [0, 2, 0, -4, 0]
+    interval = [(0, 1), (1, 3), (3, 8), (8, 9), (9, 10)]
 
-main()
+    selection = menu()
+
+    if selection == "Gráfico 1 - s(t)":
+        # Lógica para o Gráfico 1 - s(t)
+        pass
+
+    elif selection == "Gráfico 2 - v(t)":
+        plt.figure(num=0, dpi=120)
+
+        for i in range(size):
+            t_values = np.linspace(interval[i][0], interval[i][1], 10)
+            v_values, _ = vt(v0[i], t0[i], a[i], t_values)
+            plt.plot(t_values, v_values, label=f'Intervalo {i+1}')
+
+        plt.legend()
+        plt.xlabel('Tempo')
+        plt.ylabel('Velocidade')
+        plt.show()
+
+    elif selection == "Gráfico 3 - a(t)":
+        plot_const_functions(interval, a, ylabel="Y")
+
+if __name__ == "__main__":
+    main()
