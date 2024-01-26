@@ -8,7 +8,14 @@ A aceleração é a taxa de variação da velocidade em relação ao tempo. Mate
 
 Também é possível realizar o processo inverso, usando a integral para reconstituir as transformações, sendo a constante uma grandeza inicial.
 
+<<<<<<< HEAD
 O trabalho está dividido em 3 arquivos de código. 
+=======
+##
+
+### Sobre o código
+O trabalho está dividido em 3 arquivos .py: 
+>>>>>>> 163efeab5d647de6b518c97696eb76dbb5fde6ec
 
 O `plot-graphic.py`é usa as bibliotecas do *sympy* e *matplotlib* para imprimir os gráficos de s(t), v(t)e a(t), por meio dos dados existentes dos pontos do gráfico de velocidade.
 
