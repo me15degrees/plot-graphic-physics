@@ -1,43 +1,39 @@
-from sympy import symbols, integrate
 import matplotlib.pyplot as plt
 import numpy as np
 
-def velocity_function(aceleracao, velocidade_inicial, t):
-    t_sym = symbols('t')
-    a = lambda t: aceleracao
-    velocidade = velocidade_inicial + integrate(a(t_sym), t_sym)
-    return velocidade
+def integrate_acc_to_vel(v0,t0,a,t):
+    v = a * (t - t0) + v0
+    vel_function = print(f"v(t) = {v0} + {a} * (t - {t0})")
+    
+    return v, vel_function
 
-def plot_velocity_function(aceleracao, velocidade_inicial, intervalo):
-    t_sym = symbols('t')
-    a = lambda t: aceleracao
-    velocidade = velocidade_inicial + integrate(a(t_sym), t_sym)
 
-    # Criando uma função NumPy a partir da função simbólica
-    velocity_np = np.vectorize(lambda t_val: velocidade.subs(t_sym, t_val).evalf())
+def integrate_vel_to_pos(s0,t0,v,t):
+    s = v * (t-t0) + s0
+    pos_function = print(f"s(t) = {s0} + {v} * (t - {t0})")
+    
+    return s, pos_function
 
-    # Criando um array de valores de t para o intervalo dado
-    t_values = np.linspace(intervalo[0], intervalo[1], 100)
-
-    # Plotando a função
-    plt.plot(t_values, velocity_np(t_values), label=f'a={aceleracao}, v0={velocidade_inicial}')
 
 def main():
-    v0 = [0, 0, 4, 4, 0]
-    a = [0, 2, 0, -4, 0]
-    t = [0, 1, 3, 8, 9]
-    delta_t = [(0, 1), (1, 3), (3, 8), (8, 9), (9, 10)]
-    size = len(v0)
-
-    # Plotando as funções para cada intervalo
+    t0 = [0,1,3,8,9] # condição inicial de tempo
+    v0 = [0,0,4,4,0] # condição inicial de velocidade
+    s0 = [0,1,4,24,26] # condição inicial de posição
+    a = [0,2,0,-4,0] 
+    
+    size = 5
+    
+    interval = [(0,1),(1,3),(3,8),(8,9),(9,10)] # intervalos de tempo
+    
+    v = []
+    s = []
+    
     for i in range(size):
-        plot_velocity_function(a[i], v0[i], delta_t[i])
+        print(f"\nPara o intervalo {i}: ")
+        print(f"a(t) = {a[i]}")
+        vf, _ = integrate_acc_to_vel(v0[i],t0[i],a[i],interval[i][1])
+        v.append(vf)
+        sf, _ = integrate_vel_to_pos(s0[i],t0[i],v[i],interval[i][1])
+        s.append(sf)
 
-    # Adicionando legendas
-    plt.legend()
-    plt.xlabel('Tempo (t)')
-    plt.ylabel('Velocidade (v)')
-    plt.title('Funções de Velocidade')
-
-    # Exibindo o gráfico
-    plt.show()
+main()
