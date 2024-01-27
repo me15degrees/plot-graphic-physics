@@ -7,7 +7,6 @@ def menu():
         "Gráfico 1 - s(t)",
         "Gráfico 2 - v(t)",
         "Gráfico 3 - a(t)",
-        "Todos",
         "Sair",
         color="bold purple",
         rule_title="Física I",
@@ -30,50 +29,70 @@ def v_t(v0, t0, a, t_values):
 
 def plot_s_t(a, t0, s0, v0, interval):
     """Plota o gráfico de posição em função do tempo"""
-    plt.figure(num=0, dpi=120)
+    largura = 10 
+    altura = 6  
+    plt.figure(num=0, figsize=(largura, altura), dpi=120)
+
+    colors = plt.cm.viridis(np.linspace(0, 1, len(interval)))
 
     s0_list = [s0]
-    for i, (t0_i, v0_i, a_i) in enumerate(zip(t0, v0, a)):
+
+    for i, (t0_i, v0_i, a_i, color) in enumerate(zip(t0, v0, a, colors)):
         t_values = np.linspace(interval[i][0], interval[i][1], 100)
         s_values = s_t(a_i, t0_i, s0_list[-1], v0_i, t_values)
         s0_list.append(s_values[-1])
-        plt.plot(t_values, s_values, label=f"Intervalo {i+1}", color="blue")
+        plt.plot(t_values, s_values, label=f"Intervalo {i+1}", color=color)
 
     plt.legend()
     plt.xlabel("Tempo")
     plt.ylabel("Posição")
+    plt.title("Gráfico 1 - Posição em função do tempo")
+    plt.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.7)
     plt.show()
 
     return s_values
 
 def plot_v_t(v0, t0, a, interval):
     """Plota o gráfico de velocidade em função do tempo"""
-    plt.figure(num=0, dpi=120)
+    largura = 10
+    altura = 6 
+    plt.figure(num=0, figsize=(largura, altura), dpi=120)
 
-    for i, (t0_i, v0_i, a_i) in enumerate(zip(t0, v0, a)):
+    colors = plt.cm.viridis(np.linspace(0, 1, len(interval)))
+
+    for i, (t0_i, v0_i, a_i, color) in enumerate(zip(t0, v0, a, colors)):
         t_values = np.linspace(interval[i][0], interval[i][1], 100)
         v_values = v_t(v0_i, t0_i, a_i, t_values)
-        plt.plot(t_values, v_values, label=f"Intervalo {i+1}", color="pink")
+        plt.plot(t_values, v_values, label=f"Intervalo {i+1}", color=color)
     plt.legend()
     plt.xlabel("Tempo")
     plt.ylabel("Velocidade")
+    plt.title("Gráfico 2 - Velocidade em função do tempo")
+    plt.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.7)
     plt.show()
 
     return v_values
 
 def plot_a_t(intervals, constants, ylabel="Aceleração"):
     """Plota o gráfico de aceleração em função do tempo"""
-    plt.figure(num=0, dpi=120)
+    largura = 10  
+    altura = 6    
+    plt.figure(num=0, figsize=(largura, altura), dpi=120)
 
-    for i, (interval, const_value) in enumerate(zip(intervals, constants)):
-        plt.hlines(const_value, interval[0], interval[1], label=f"Intervalo {i+1}", color="orange")
+    # Paleta de cores do Matplotlib
+    colors = plt.cm.viridis(np.linspace(0, 1, len(intervals)))
+
+    for i, (interval, const_value, color) in enumerate(zip(intervals, constants, colors)):
+        plt.hlines(const_value, interval[0], interval[1], color=color, label=f"Intervalo {i+1}")
         if i < len(intervals) - 1:
             next_interval = intervals[i + 1]
-            plt.plot([interval[1], next_interval[0]], [const_value, constants[i + 1]], color="orange")
+            plt.plot([interval[1], next_interval[0]], [const_value, constants[i + 1]], color=color)
 
     plt.legend()
     plt.xlabel("Tempo")
     plt.ylabel(ylabel)
+    plt.title("Gráfico 3 - Aceleração em função do tempo")
+    plt.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.7)
     plt.show()
 
 def main():
@@ -94,20 +113,6 @@ def main():
 
         elif selection == "Gráfico 3 - a(t)":
             plot_a_t(interval, a, ylabel="Aceleração")
-
-        elif selection == "Todos":
-            plt.figure(num=0, dpi=120)
-
-            for i, (t0_i, v0_i, a_i) in enumerate(zip(t0, v0, a)):
-                t_values = np.linspace(interval[i][0], interval[i][1], 100)
-                s_values = s_t(a_i, t0_i, 0, v0_i, t_values)
-                plt.plot(t_values, s_values, label=f"Intervalo {i+1} - Posição", color="blue")
-
-                v_values = v_t(v0_i, t0_i, a_i, t_values)
-                plt.plot(t_values, v_values, label=f"Intervalo {i+1} - Velocidade", color="red")
-
-            plt.legend()
-            plt.show()
 
 if __name__ == "__main__":
     main()
