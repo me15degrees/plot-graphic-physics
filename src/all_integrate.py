@@ -26,7 +26,7 @@ def integrate_acc_to_pos(acceleration, t, v0, s0):
 def main():
     # Inserir aqui os valores de aceleração, tempo e posição
     acc_values = [0, 2, 0, -4, 0]
-    time_values = [0, 1, 3, 8, 9]
+    interval = [(0, 1), (1, 3), (3, 8), (8, 9), (9, 10)]
     pos_values = [0, 0, 4, 8, 26]
 
     find_functions(time_values, pos_values)
