@@ -96,7 +96,7 @@ def plot_a_t(intervals, constants, ylabel="Aceleração"):
     plt.show()
 
 def main():
-    size = 5
+    
     t0 = [0, 1, 3, 8, 9]
     v0 = [0, 0, 4, 4, 0]
     a = [0, 2, 0, -4, 0]
