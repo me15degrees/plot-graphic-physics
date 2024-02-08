@@ -42,7 +42,7 @@ def main():
     screen = pg.display.set_mode(SCREEN_SIZE)
     pg.display.set_caption("Elevador")
 
-    background = Background("fundo-elevador3.png", (0, 0), SCREEN_SIZE, acc = 2)
+    background = Background("src/simulation-of-movement/assets/fundo-elevador4.png", (0, 0), SCREEN_SIZE, acc = 2)
     
 
     running = True
