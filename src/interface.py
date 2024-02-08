@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import old_plot_graphic as plotgr
+import new_plot_graphic as plotgr
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
 
