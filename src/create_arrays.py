@@ -12,7 +12,6 @@ ypos = pd.DataFrame(posicao["Posicao"]).values
 
 aceleracao = pd.read_csv("csv/aceleracao.csv", sep=";")
 aceleracao.dropna(inplace = True)
-xace = pd.DataFrame(aceleracao["x"]).values #Array do eixo X
-yace = pd.DataFrame(aceleracao["Aceleracao"]).values #Array do eixo Y
-
+xace = pd.DataFrame(aceleracao["x"]).values 
+yace = pd.DataFrame(aceleracao["Aceleracao"]).values 
 
