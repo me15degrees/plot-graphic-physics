@@ -1,34 +1,38 @@
+import numpy as np
 import matplotlib.pyplot as plt
-from scipy.integrate import simpson
-import create_arrays as gd
+import create_arrays as cta
 
-def plot(x, y):
+# Função para calcular a área sob a curva usando o método do trapézio
+def trapezoidal_integration(x, y):
+    n = len(x)
+    area = 0
+    for i in range(1, n):
+        delta_x = x[i] - x[i-1]
+        avg_height = (y[i] + y[i-1]) / 2
+        area += delta_x * avg_height
+    return area
 
-    if len(x) < 2 or len(y) < 2:
-        print("Erro: Não há pontos suficientes para calcular a integral.")
-        return
+# Pontos fornecidos
+x_points = cta.xpos
+y_points = cta.ypos
 
-    x, y = zip(*sorted(zip(x, y)))
-    
-    plt.plot(x, y, 'bo-', label='Pontos de Dados')
 
-    plt.title('Integração Numérica')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.axhline(0, color='black', linewidth=0.5)
-    plt.axvline(0, color='black', linewidth=0.5)
-    plt.grid(color='gray', linestyle='--', linewidth=0.5)
-  
-    plt.legend()
-   
-    plt.show()
+# Ordenar os pontos em ordem crescente de coordenada x
+sorted_indices = np.argsort(x_points)
+x, y = zip(*sorted(zip(x_points, y_points)))
 
-def main():
-    all_points = [(gd.xvel, gd.yvel),(gd.xpos, gd.ypos),(gd.xace, gd.yace)]
-    for i in range(3):
-        plot(all_points[i][0], all_points[i][1])
+# Calcular a área sob a curva
+area = trapezoidal_integration(x, y)
 
-if __name__ == "__main__":
-    main()
+# Plotar os pontos
+plt.plot(x_points, y_points, 'bo-', label='Pontos de Dados')
 
- 
+
+# Adicionar rótulos e legendas
+plt.title('Integração Numérica com Método do Trapézio')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
+
+# Exibir o gráfico
+plt.show()
