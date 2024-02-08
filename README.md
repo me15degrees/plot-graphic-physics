@@ -11,30 +11,5 @@ Também é possível realizar o processo inverso, usando a integral para reconst
 ##
 
 ### Sobre o código
-O trabalho está dividido em 3 arquivos .py: 
-
-O `plot-graphic.py` usa as bibliotecas do *numpy*, *matplotlib* e *rich menu* para plotar os gráficos de s(t), v(t)e a(t), por meio dos dados existentes e criar um menu iterativo. O gráfico é criado a partir da integração em relação ao tempo da função de aceleração, passando os pontos fornecidos por ela, para achar a função de velocidade para o mesmo intervalo de tempo, e assim por diante.
-
-
-```
-Para encontrar a integral da função de velocidade v = a⋅(t−t0)+v0, você deve integrar em relação ao tempo t.
-
-Lembre-se de que a constante de integração é necessária ao realizar a integração.
-
-Vamos calcular a integral:
-
-∫v dt=∫(a⋅(t−t0)+v0) dt
-
-Ao realizar a integração, obtemos:
-
-s(t)=a/2(t−t0)²+v0⋅(t−t0)+s0
-
-Onde s(t) é a função de posição, s0​ é a constante de integração que dependerá das condições iniciais.
-
-Portanto, a integral da função de velocidade v = a⋅(t−t0)+v0 em relação ao tempo t é a função de posição s(t) dada pela fórmula acima.
-```
-
-O `all_differentiate.py` é responsável por impirimir com formatação as funções derivadas de s(t) para v(t), e de v(t) para a(t).
-
-Já o `all_integrate.py` é responsável por impirimir com formatação as funções integradas de a(t) para v(t), e de v(t) para s(t).
-
+Imagem do elevador - <a href="https://www.flaticon.com/br/icones-gratis/lift" title="lift ícones">Lift ícones criados por Icon Box - Flaticon</a>
+Background - Criação Própria
